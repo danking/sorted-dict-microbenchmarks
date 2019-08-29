@@ -44,6 +44,16 @@ timer('(d with 1M).update(kvs)',
       lambda d: d.update(kvs),
       d_with_1m)
 
+
+def iteratively_add_to_1m(d):
+    for _ in range(100):
+        d.update(kvs)
+
+
+timer('iteratively_add_to_1m',
+      iteratively_add_to_1m,
+      lambda: sc.SortedDict())
+
 timer('sorted(pairs, key=lambda x: x[0])',
       lambda _: sorted(pairs, key=lambda x: x[0]),
       lambda: list(kvs.items()))
