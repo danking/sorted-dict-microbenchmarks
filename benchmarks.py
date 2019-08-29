@@ -11,9 +11,11 @@ mm_kvs = {str(i): i for i in range(1_000_000)}
 print('mm_kvs = {str(i): i for i in range(1_000_000)}')
 mm_pairs = list(kvs.items())
 print('mm_pairs = list(kvs.items())')
+kvs_not_in_mm = {str(i): i for i in range(0, -10_000, -1)}
+print('kvs_not_in_mm = {str(i): i for i in range(0, -10_000, -1)}')
 
 
-def timer(name, f, setup, iterations=15):
+def timer(name, f, setup, iterations=10):
     times = []
     for _ in range(iterations):
         x = setup()
@@ -45,8 +47,17 @@ timer('(d with 1M).update(kvs)',
       d_with_1m)
 
 
+timer('(d with 1M).update(kvs_not_in_mm)',
+      lambda d: d.update(kvs_not_in_mm),
+      d_with_1m)
+
+
+iterative_kvs = [{str(i): i for i in range(10_000 * j, 10_000 * (j + 1))}
+                 for j in range(100)]
+
+
 def iteratively_add_to_1m(d):
-    for _ in range(100):
+    for kvs in iterative_kvs:
         d.update(kvs)
 
 
