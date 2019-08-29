@@ -3,20 +3,6 @@ import time
 import numpy as np
 
 
-class Timer:
-    def __init__(self, name):
-        self.name = name
-
-    def __enter__(self):
-        self.start = time.monotonic()
-        return self
-
-    def __exit__(self, *args):
-        self.end = time.monotonic()
-        self.interval = self.end - self.start
-        print(f'{self.name}: {self.interval}s')
-
-
 kvs = {str(i): i for i in range(10_000)}
 print('kvs = {str(i): i for i in range(10_000)}')
 pairs = list(kvs.items())
